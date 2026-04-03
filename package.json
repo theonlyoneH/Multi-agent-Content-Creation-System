@@ -1,0 +1,27 @@
+{
+  "name": "multiagent-content-system",
+  "version": "2.0.0",
+  "description": "Decentralized multi-agent content creation system",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start":           "node src/index.js",
+    "run:job":         "node src/index.js run",
+    "submit":          "node src/index.js submit",
+    "agent:query-rewriter": "node src/agents/query-rewriter.js",
+    "agent:retriever":  "node src/agents/retriever.js",
+    "agent:research":  "node src/agents/research.js",
+    "agent:planner":   "node src/agents/planner.js",
+    "agent:writer":    "node src/agents/writer.js",
+    "agent:editor":    "node src/agents/editor.js",
+    "agent:seo":       "node src/agents/seo.js",
+    "agent:publisher": "node src/agents/publisher.js",
+    "check":           "node --check src/index.js && node --check src/agents/query-rewriter.js && node --check src/agents/retriever.js && node --check src/agents/research.js && node --check src/core/base.js && node --check src/core/bus.js && node --check src/core/store.js && node --check src/core/schema.js && node --check src/core/config.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.4.7",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.0"
+  }
+}

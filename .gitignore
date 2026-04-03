@@ -1,0 +1,57 @@
+# ----------------------
+# Node.js
+# ----------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ----------------------
+# Environment variables
+# ----------------------
+.env
+.env.local
+.env.*.local
+
+# Keep example file
+!.env.example
+
+# ----------------------
+# Output / Generated Content
+# ----------------------
+output/
+*.log
+
+# ----------------------
+# OS Files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# IDE / Editor
+# ----------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ----------------------
+# Docker
+# ----------------------
+docker-data/
+*.pid
+
+# ----------------------
+# Temporary files
+# ----------------------
+tmp/
+temp/
+.cache/
+
+# ----------------------
+# Build / Misc
+# ----------------------
+dist/
+build/

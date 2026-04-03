@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ── Dev mode: all agents in one process ─────────────
+  app:
+    build: .
+    command: node src/index.js
+    depends_on:
+      redis:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - ./output:/app/output
+
+  # ── Production: one container per agent ─────────────
+  # Uncomment and use instead of 'app' for production.
+  #
+  # query-rewriter:
+  #   build: .
+  #   command: npm run agent:query-rewriter
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # research:
+  #   build: .
+  #   command: npm run agent:research
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # planner:
+  #   build: .
+  #   command: npm run agent:planner
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # writer:
+  #   build: .
+  #   command: npm run agent:writer
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # editor:
+  #   build: .
+  #   command: npm run agent:editor
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # seo:
+  #   build: .
+  #   command: npm run agent:seo
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+  #
+  # publisher:
+  #   build: .
+  #   command: npm run agent:publisher
+  #   depends_on: { redis: { condition: service_healthy } }
+  #   env_file: .env
+  #   environment: { REDIS_URL: "redis://redis:6379" }
+
+volumes:
+  redis-data:
